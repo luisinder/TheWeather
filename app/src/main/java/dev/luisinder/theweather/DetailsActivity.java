@@ -1,7 +1,10 @@
 package dev.luisinder.theweather;
 
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -44,6 +47,11 @@ public class DetailsActivity extends BaseActivity implements OnMapReadyCallback 
         String value = extras.getString("info");
         value = value.replace("[","").replace("]","");
         Logger.v("EXTRA", value);
+
+        Resources res = getResources();
+        ProgressBar mProgress = (ProgressBar) findViewById(R.id.progressbar_temperature);
+
+
         try {
 
             JSONObject obj = new JSONObject(value);
@@ -51,6 +59,8 @@ public class DetailsActivity extends BaseActivity implements OnMapReadyCallback 
             mCloud.setText("Humedad " + obj.getString("humidity") +  "%");
             lat = Float.valueOf(obj.getString("lat"));
             lng = Float.valueOf(obj.getString("lng"));
+            mProgress.setProgress(Integer.parseInt(obj.getString("temperature")) * 2);
+            mProgress.setMax(100);
 
         } catch (Throwable t) {
             Log.e("TheWeather", "Could not parse malformed JSON: \"" + value + "\"");
