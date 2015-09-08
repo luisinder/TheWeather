@@ -59,7 +59,7 @@ public class DetailsActivity extends BaseActivity implements OnMapReadyCallback 
             mCloud.setText("Humedad " + obj.getString("humidity") +  "%");
             lat = Float.valueOf(obj.getString("lat"));
             lng = Float.valueOf(obj.getString("lng"));
-            mProgress.setProgress(Integer.parseInt(obj.getString("temperature")) * 2);
+            mProgress.setProgress(Integer.parseInt(obj.getString("temperature")));
             mProgress.setMax(100);
 
         } catch (Throwable t) {

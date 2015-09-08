@@ -49,7 +49,9 @@ public class CityAdapter extends BaseAdapter {
         CityResponse location = locations.get(position);
 
         TextView itemText = (TextView)rootView.findViewById(R.id.txt_cityname);
-        itemText.setText(location.name);
+        itemText.setText(location.name + " (" + location.countryName + ")");
+        TextView details = (TextView)rootView.findViewById(R.id.txt_extradata);
+        details.setText(location.lat + " - " + location.lng);
         return rootView;
     }
 }
