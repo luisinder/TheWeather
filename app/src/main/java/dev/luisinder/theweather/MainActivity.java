@@ -46,6 +46,8 @@ public class MainActivity extends BaseActivity implements com.android.volley.Res
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
         mDialog = new SpotsDialog(mContext);
+
+        // Acceso a la base de datos
         DBController MDB = new DBController(getApplicationContext());
         final List<History> mHisCity = new ArrayList<History>(MDB.getHistory());
         cityList = (ListView) findViewById(R.id.list_history);
@@ -54,7 +56,6 @@ public class MainActivity extends BaseActivity implements com.android.volley.Res
         cityList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Logger.v("City selected", mHisCity.get(position).getName());
-                //searchCity(mHisCity.get(position).getNorth(), mHisCity.get(position).getSouth(), mHisCity.get(position).getEeast(), mHisCity.get(position).getWest());
                 URLBuilder(mHisCity.get(position).getName());
             }
         });

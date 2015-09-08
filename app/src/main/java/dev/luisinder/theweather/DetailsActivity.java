@@ -1,7 +1,5 @@
 package dev.luisinder.theweather;
 
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ProgressBar;
@@ -12,13 +10,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.gson.Gson;
 import org.json.JSONObject;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import dev.luisinder.theweather.service.response.ConditionsResponse;
 import dev.luisinder.theweather.utils.Logger;
 
 /**
@@ -26,7 +21,6 @@ import dev.luisinder.theweather.utils.Logger;
  */
 public class DetailsActivity extends BaseActivity implements OnMapReadyCallback {
 
-    private List<ConditionsResponse> mCityData;
     @InjectView(R.id.txt_name)
     protected TextView mCity;
     @InjectView(R.id.clouds)
@@ -42,13 +36,10 @@ public class DetailsActivity extends BaseActivity implements OnMapReadyCallback 
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        Gson gson = new Gson();
         Bundle extras = getIntent().getExtras();
         String value = extras.getString("info");
         value = value.replace("[","").replace("]","");
         Logger.v("EXTRA", value);
-
-        Resources res = getResources();
         ProgressBar mProgress = (ProgressBar) findViewById(R.id.progressbar_temperature);
 
 
@@ -56,7 +47,7 @@ public class DetailsActivity extends BaseActivity implements OnMapReadyCallback 
 
             JSONObject obj = new JSONObject(value);
             mCity.setText(obj.getString("stationName"));
-            mCloud.setText("Humedad " + obj.getString("humidity") +  "%");
+            mCloud.setText("Humedad " + obj.getString("humidity") +  "%" + " - Temperatura: " + obj.getString("temperature")+ "º");
             lat = Float.valueOf(obj.getString("lat"));
             lng = Float.valueOf(obj.getString("lng"));
             mProgress.setProgress(Integer.parseInt(obj.getString("temperature")));

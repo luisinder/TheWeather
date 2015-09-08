@@ -59,7 +59,7 @@ public class CitiesSelectActivity extends BaseActivity implements com.android.vo
         cityList.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Logger.v("City selected", city_data.get(position).name);
-                MDB.insertHistory(city_data.get(position).name,String.valueOf(city_data.get(position).bbox.north), String.valueOf(city_data.get(position).bbox.south),
+                MDB.insertHistory(city_data.get(position).name + " - (" + city_data.get(position).countryName + ")",String.valueOf(city_data.get(position).bbox.north), String.valueOf(city_data.get(position).bbox.south),
                         String.valueOf(city_data.get(position).bbox.east), String.valueOf(city_data.get(position).bbox.west));
                 searchCity(city_data.get(position).bbox.north, city_data.get(position).bbox.south, city_data.get(position).bbox.east, city_data.get(position).bbox.west);
             }
